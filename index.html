@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARTICLE EFFECT WITH sidebar</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+
+
+
+    <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3744450/particles.js"></script>
+    <script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3744450/particles.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url(./image/bg.jpg);
+            overflow: hidden;
+        }
+
+        :root {
+            --bar-width: 25px;
+            --bar-height: 3px;
+            --hamburger-gap: 4px;
+            --foreground: rgb(13, 13, 111);
+            /* --background: red; */
+            --hamburger-margin: 8px;
+            --animation-timing: 0.2s ease-in-out;
+            --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+        }
+
+
+        .hamburger-menu {
+            --x-width: calc(var(--hamburger-height) * 1.5);
+            display: flex;
+            flex-direction: column;
+            gap: var(--hamburger-gap);
+            width: max-content;
+            position: absolute;
+            top: var(--hamburger-margin);
+            left: var(--hamburger-margin);
+            z-index: 95;
+            cursor: pointer;
+            padding-top: 26%;
+        }
+
+        .hamburger-menu:has(input:checked) {
+            --foreground: white;
+            --background: #08f100;
+        }
+
+        .hamburger-menu:has(input:focus-visible)::before,
+        .hamburger-menu:has(input:focus-visible)::after,
+        .hamburger-menu input:focus-visible {
+            border: 1px solid var(--background);
+            box-shadow: 0 0 0 1px var(--foreground);
+        }
+
+        .hamburger-menu::before,
+        .hamburger-menu::after,
+        .hamburger-menu input {
+            content: "";
+            width: var(--bar-width);
+            height: var(--bar-height);
+
+            /* hamburger button colour */
+            background-color: white;
+
+            border-radius: 9999px;
+            transform-origin: left center;
+            transition: opacity var(--animation-timing), width var(--animation-timing),
+                rotate var(--animation-timing), translate var(--animation-timing),
+                background-color var(--animation-timing);
+        }
+
+        .hamburger-menu input {
+            appearance: none;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            pointer-events: none;
+        }
+
+        .hamburger-menu:has(input:checked)::before {
+            rotate: 45deg;
+            width: var(--x-width);
+            translate: 0 calc(var(--bar-height) / -2);
+        }
+
+        .hamburger-menu:has(input:checked)::after {
+            rotate: -45deg;
+            width: var(--x-width);
+            translate: 0 calc(var(--bar-height) / 2);
+        }
+
+        .hamburger-menu input:checked {
+            opacity: 0;
+            width: 0;
+        }
+
+        .sidebar {
+            transition: translate var(--animation-timing);
+            translate: -100%;
+            /* sidebar background colour */
+            background-color: rgb(27, 28, 29);
+            /* sidebar adjustment width height: ; */
+            width: 21rem;
+            min-height: 100vh;
+            position: absolute;
+            z-index: 92;
+            top: 0;
+            left: 0;
+
+            /* font-family: 'Cormorant Garamond', serif; */
+
+        }
+
+        .hamburger-menu:has(input:checked)+.sidebar {
+            translate: 0;
+        }
+
+
+        /* Particle effect */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #fullscreen {
+            background-size: cover;
+            height: 100vh;
+
+        }
+
+        #particles-js {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+
+        }
+
+
+
+
+        .menu-list-element {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            height: 3rem;
+            width: 100%;
+            background: #5ac24e linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%);
+            /* font-family: 'Cormorant Garamond', serif; */
+            color: white;
+            font-weight: 700;
+        }
+
+        .menu-list-element a {
+            text-decoration: none;
+        }
+
+        .menu-list-element a span {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo1 {
+            padding-top: 0.75rem;
+            align-items: center;
+            text-align: center;
+            font-size: 1.55rem;
+        }
+
+        .sociallinks {
+            height: 1.2rem;
+            width: 1.2rem;
+
+        }
+
+
+        .namesection1 {
+            color: white;
+            font-size: 2.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+
+        /* animation */
+
+
+
+        .at-item {
+            width: 50%;
+            height: 100vh;
+            background-color: rgb(27, 28, 29);
+            overflow: hidden;
+            animation: myanim 1s ease 0s reverse forwards;
+
+        }
+
+        @keyframes myanim {
+            0% {
+                opacity: 0;
+                transform: rotateY(-100deg);
+                transform-origin: right;
+            }
+
+            100% {
+                opacity: 1;
+                transform: rotateY(0);
+                transform-origin: right;
+            }
+        }
+
+
+        .responsive-div {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            background-color: transparent;
+            text-align: center;
+            font-size: 30px;
+            z-index: 2;
+            top: 50%;
+        }
+
+
+
+
+        /* @media screen and (min-width: 768px) {
+            .responsive-div {
+                width: 50%;
+            }
+        } */
+    </style>
+
+
+</head>
+
+<body id="particles-js">
+    <div><label class="hamburger-menu"><input type="checkbox"></label>
+
+
+
+
+        <aside class="sidebar">
+            <nav>
+
+                <div class="logo">
+                    <div class="logo1"><span>PRASHANT</span></div>
+                </div>
+                <div class="mainmenu">
+                    <ul style="list-style: none; ">
+                        <div style="margin-top: 40px;">
+                            <li class="menu-list-element"><a href="home-card"><span>HOME</span></a></li>
+                            <li class="menu-list-element"><a href="#about-card"><span>ABOUT</span></a></li>
+                            <li class="menu-list-element"><a href="#resume-card"><span>RESUME</span></a>
+                            </li>
+                            <li class="menu-list-element"><a href="#contact-card"><span>CONTACT</span></a>
+                            </li>
+                            <li class="menu-list-element"><a href="#portfolio-card"><span>PORTFOLIO</span></a></li>
+                        </div>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+    </div>
+    <div style="position: absolute; z-index: 93; background-color:#181818; height: 100vh;width: 2.5rem;">
+        <div class="logo">
+            <div class="logo1"><span>P</span></div>
+        </div>
+        <div style="position: absolute; bottom: 0%; align-items: center; margin: 0.6rem;">
+            <div><a href="#"><img class="sociallinks" alt="social link" src="./image/fbicon.png" srcset=""></a></div>
+            <div><a href="#"><img class="sociallinks" alt="social link" src="./image/igicon.png" srcset=""></a></div>
+            <div><a href="#"><img class="sociallinks" alt="social link" src="./image/waicon.png" srcset=""></a></div>
+        </div>
+    </div>
+
+
+    <!-- animation -->
+    <div style=" width:100%; position: absolute; z-index: 2; display:flex; flex-direction: row;" class="container">
+        <div class=" at-item"></div>
+        <div class=" at-item"></div>
+
+    </div>
+
+    <!-- namesection1 -->
+    <div class="responsive-div ">
+        <div class=" namesection1">
+            <h1><span style="margin-right: 0.5rem; opacity: 0.5;">Prashant</span> Vishwakarma</h1>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+</body>
+<script> //Particle effect js
+
+    //Particle effect js
+    particlesJS('particles-js',
+
+        {
+            "particles": {
+                "number": {
+                    "value": 200,
+                    "density": {
+                        "enable": true,
+                        "value_area": 1200
+                    }
+                },
+                "color": {
+                    "value": "#fff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+
+                },
+                "opacity": {
+                    "value": 0.1,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 4,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "none"
+                    },
+                    "onclick": {
+                        "enable": false,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true,
+
+        }
+
+    );
+    //animation
+
+
+</script>
+
+</html
